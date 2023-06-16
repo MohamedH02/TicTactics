@@ -1,4 +1,4 @@
-m#include "GameManager.h"
+#include "GameManager.h"
 
 GameManager::GameManager(sf::RenderWindow& window)
 {
