@@ -137,7 +137,7 @@
     <ClCompile Include="GameManager\GameManager.cpp" />
     <ClCompile Include="GUI\Button.cpp" />
     <ClCompile Include="GUI\IA.cpp" />
-    <ClCompile Include="GUI\RoundCourneredRec.cpp" />
+    <ClCompile Include="GUI\RoundRectangleShape.cpp" />
     <ClCompile Include="Menus\MainMenu.cpp" />
     <ClCompile Include="Menus\Menu.cpp" />
     <ClCompile Include="Menus\SelectionMenu.cpp" />

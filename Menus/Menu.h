@@ -30,7 +30,7 @@ public:
 	*
 	* @param position - The cursor (x, y) coordinates.
 	*/
-	virtual void GetHover(sf::Vector2f position) = 0;
+	virtual void GetHover(const sf::Vector2i position);
 
 	/**
 	* @brief Loops on the user's input to handle it.

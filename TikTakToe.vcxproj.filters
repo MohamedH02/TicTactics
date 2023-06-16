@@ -21,7 +21,7 @@
     <ClCompile Include="GUI\IA.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GUI\RoundCourneredRec.cpp">
+    <ClCompile Include="GUI\RoundRectangleShape.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Menus\MainMenu.cpp">

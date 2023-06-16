@@ -4,6 +4,7 @@
 MainMenu::MainMenu(sf::RenderWindow& window)
 {
 	this->window = &window;
+	selected = NULL;
 	Interactives::SetRenderWindow(window);
 
 	Setup();
@@ -40,9 +41,17 @@ void MainMenu::Setup()
 
 	sf::Vector2f ButtonSize(240, 60);
 	// Buttons. 
-	Button* PLAY = new Button(sf::Vector2f(680, 450), ButtonSize, "Play");
-	Button* SETTINGS = new Button(sf::Vector2f(680, 530), ButtonSize, "Options");
-	Button* EXIT = new Button(sf::Vector2f(680, 610), ButtonSize, "Exit");
+	Button* PLAY = new Button(ButtonSize, 10, 10, "Play");
+	PLAY->SetPosition(sf::Vector2f(680, 450));
+	PLAY->SetAction(UI::SelectModes);
+
+	Button* SETTINGS = new Button(ButtonSize, 10, 10, "Options");
+	SETTINGS->SetPosition(sf::Vector2f(680, 530));
+	SETTINGS->SetAction(UI::OpenSettings);
+
+	Button* EXIT = new Button(ButtonSize, 10, 10, "Exit");
+	EXIT->SetPosition(sf::Vector2f(680, 610));
+	EXIT->SetAction(UI::ExitGame);
 
 	IA.push_back(PLAY);
 	IA.push_back(SETTINGS);
@@ -62,42 +71,12 @@ void MainMenu::Resize()
 }
 
 /**
-* @brief Get the object which the mouse is currently above.
-*
-* @param position - The cursor (x, y) coordinates.
-*/
-void MainMenu::GetHover(sf::Vector2f position)
-{
-	// Check if the current selected is still selected.
-	//if (selected && selected->CheckHover(position))
-	//	return;
-
-	//int i;
-	//for (i = 0; i < IA.size(); i++)
-	//{
-	//	if (IA[i]->CheckHover(position))
-	//	{
-	//		IA[i]->SetHover(true);
-	//		selected->SetHover(false);
-	//		selected = IA[i];
-	//	}
-	//}
-
-	//// If nothing is selected.
-	//if (i >= IA.size())
-	//{
-	//	selected->SetHover(false);
-	//	selected = NULL;
-	//}
-}
-
-/**
 * @brief Loops on the user's input to handle it.
 */
 void MainMenu::GetInput()
 {
 	sf::Clock clock;
-	while (window->isOpen() && UI::GUI.CurrPage == UI::Main)
+	while (window->isOpen() && UI::GUI.CurrPage == UI::MAIN)
 	{
 		sf::Event event;
 		float deltatime = clock.restart().asSeconds();
@@ -105,7 +84,7 @@ void MainMenu::GetInput()
 		{
 			if (event.type == sf::Event::Closed)
 			{
-				UI::GUI.CurrPage = UI::Exit;
+				UI::GUI.CurrPage = UI::EXIT;
 				window->close();
 			}
 			else if (event.type == sf::Event::KeyPressed)
@@ -126,7 +105,29 @@ void MainMenu::GetInput()
 */
 void MainMenu::HandleMouseInput()
 {
-
+	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		const sf::Vector2i mouse_position = sf::Mouse::getPosition(*window);	// Gets mouse position relative to the local given window.
+		GetHover(mouse_position);
+	}
+	else if (selected)
+	{
+		UI::ActionType action = selected->GetAction();
+		switch (action)
+		{
+		case UI::SelectModes:
+			UI::GUI.CurrPage = UI::SELECTION;
+			UI::GUI.PrevPage = UI::MAIN;
+			break;
+		case UI::OpenSettings:
+			UI::GUI.CurrPage = UI::SETTINGS;
+			UI::GUI.PrevPage = UI::MAIN;
+			break;
+		case UI::ExitGame:
+			UI::GUI.CurrPage = UI::EXIT;
+			window->close();
+		}
+	}
 }
 
 /**
@@ -139,7 +140,7 @@ void MainMenu::HandleKeyInput(sf::Event::KeyEvent key)
 	switch (key.code)
 	{
 	case sf::Keyboard::Escape:
-		UI::GUI.CurrPage = UI::Exit;
+		UI::GUI.CurrPage = UI::EXIT;
 		window->close();
 		break;
 	default:

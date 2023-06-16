@@ -9,6 +9,10 @@ protected:
 	sf::Vector2f Position;
 	sf::Vector2f OriginalSize;
 	sf::Color PrimaryColor;
+
+	UI::ActionType action;
+	bool hover;
+
 	static sf::RenderWindow* window;
 public:
 	static void SetRenderWindow(sf::RenderWindow& window)
@@ -16,7 +20,27 @@ public:
 		Interactives::window = &window;
 	}
 
+	/**
+	* @brief Draws the Interactive object on the screen.
+	*/
 	virtual void Draw() = 0;
+
+	/**
+	* @brief Checks if the cursor is on the object.
+	* 
+	* @return boolean
+	*/
+	virtual bool CheckHover(const sf::Vector2i mouse) const = 0;
+
+	void SetHover(bool hover);
+
+	void SetAction(UI::ActionType action);
+	UI::ActionType GetAction() const { return action; }
+
+	/**
+	* @brief Updates any changes to the object in the current frame.
+	*/
+	virtual void update() = 0;
 };
 
 #endif

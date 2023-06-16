@@ -1,4 +1,4 @@
-#include "GameManager.h"
+m#include "GameManager.h"
 
 GameManager::GameManager(sf::RenderWindow& window)
 {
@@ -16,10 +16,12 @@ void GameManager::Execution()
 	{
 		switch (UI::GUI.CurrPage)
 		{
-		case UI::Main:
+		case UI::MAIN:
 			CreateMainMenu();
-		case UI::Settings:
+			break;
+		case UI::SETTINGS:
 			CreateOptionsMenu();
+			break;
 		}
 	}
 }

@@ -24,13 +24,6 @@ public:
 	virtual void Resize();
 
 	/**
-	* @brief Get the object which the mouse is currently above.
-	*
-	* @param position - The cursor (x, y) coordinates.
-	*/
-	virtual void GetHover(sf::Vector2f position);
-
-	/**
 	* @brief Loops on the user's input to handle it.
 	*/
 	virtual void GetInput();

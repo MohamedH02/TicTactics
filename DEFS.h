@@ -5,9 +5,10 @@
 #include <vector>
 
 namespace UI {
-	enum Action
+	enum ActionType
 	{
 		OpenSettings,
+		SelectModes,
 		PlayClassic,
 		ReturnToPrev,
 		ExitGame,
@@ -17,13 +18,14 @@ namespace UI {
 
 	enum GamePhase
 	{
-		Main,
-		Settings,
-		Classic,
-		Depth,
+		MAIN,
+		SELECTION,
+		SETTINGS,
+		CLASSIC,
+		DEPTH,
 
 
-		Exit
+		EXIT
 	};
 
 	__declspec(selectany)			// To prevent redefinition error.
@@ -52,8 +54,8 @@ namespace UI {
 			Secondary_color = sf::Color(248, 228, 211, 255);
 			Accent_color = sf::Color(234, 179, 134, 255);
 
-			CurrPage = Main;
-			PrevPage = Exit;
+			CurrPage = MAIN;
+			PrevPage = EXIT;
 		}
 	}GUI;
 }
