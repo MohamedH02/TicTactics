@@ -27,7 +27,6 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-[Bb]in/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
@@ -53,7 +52,8 @@ nunit-*.xml
 [Dd]ebugPS/
 [Rr]eleasePS/
 dlldata.c
-
+!SFML/bin/*.dll
+!x64/Debug/*.dll
 # Benchmark Results
 BenchmarkDotNet.Artifacts/
 
@@ -396,6 +396,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-
-!SFML/bin/*.dll
-!x64/Debug/*.dll
