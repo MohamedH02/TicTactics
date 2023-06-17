@@ -5,6 +5,8 @@
 #include <vector>
 
 namespace UI {
+	const unsigned char NUMBER_OF_MODES = 6;
+
 	enum ActionType
 	{
 		OpenSettings,

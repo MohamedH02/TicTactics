@@ -9,12 +9,14 @@ class Menu
 {
 protected:
 	sf::RectangleShape BackGround;
+	sf::Vector2i MousePos;
 	std::vector<Interactives*> IA;
-	Interactives* selected;			// The current IA object which the cursor is above.
+	int selected;			// The current IA object's index which the cursor is above.
 	sf::RenderWindow* window;
 
 public:
 	virtual ~Menu();
+
 	/**
 	* @brief Declares the IAs and inizialies the menu.
 	*/
@@ -33,9 +35,14 @@ public:
 	virtual void GetHover(const sf::Vector2i position);
 
 	/**
+	* @brief Executes the desired action chosen by the user.
+	*/
+	virtual void CheckAction() = 0;
+
+	/**
 	* @brief Loops on the user's input to handle it.
 	*/
-	virtual void GetInput() = 0;
+	void GetInput();
 	
 	/**
 	* @brief Handles the user's mouse input.
@@ -48,6 +55,26 @@ public:
 	* @param key - The pressed key.
 	*/
 	virtual void HandleKeyInput(sf::Event::KeyEvent key) = 0;
+
+	/**
+	* @brief Handles the up arrow key input.
+	*/
+	virtual void MoveUp() = 0;
+
+	/**
+	* @brief Handles the down arrow key input.
+	*/
+	virtual void MoveDown() = 0;
+
+	/**
+	* @brief Handles the up arrow key input.
+	*/
+	virtual void MoveLeft() = 0;
+
+	/**
+	* @brief Handles the down arrow key input.
+	*/
+	virtual void MoveRight() = 0;
 
 	/**
 	* @brief Updates the GUI.

@@ -29,9 +29,20 @@ void Button::SetPosition(sf::Vector2f position)
 	Position = position;
 	ButtonShape.setPosition(Position);
 	sf::Vector2f pos;
-	pos.x = (UI::GUI.Width - ButtonText.getLocalBounds().width) / 2;
+	pos.x = position.x + (OriginalSize.x - ButtonText.getLocalBounds().width) / 2;
 	pos.y = position.y + (OriginalSize.y - ButtonText.getLocalBounds().height) / 3;
 	ButtonText.setPosition(pos);
+}
+
+void Button::SetSize(sf::Vector2f size)
+{
+	const unsigned charsize = ButtonText.getCharacterSize();
+	const unsigned Xchange = charsize * ((size.x - OriginalSize.x) / OriginalSize.x) + charsize;
+	const unsigned Ychange = charsize * ((size.y - OriginalSize.y) / OriginalSize.y) + charsize;
+	OriginalSize = size;
+	ButtonShape.setSize(size);
+
+	ButtonText.setCharacterSize((Xchange > Ychange) ? Ychange : Xchange);
 }
 
 /**
@@ -79,7 +90,7 @@ void Button::update()
 		ButtonText.setFont(font);
 
 		sf::Vector2f pos;
-		pos.x = (UI::GUI.Width - ButtonText.getLocalBounds().width) / 2;
+		pos.x = position.x + (OriginalSize.x - ButtonText.getLocalBounds().width) / 2;
 		pos.y = position.y + (OriginalSize.y - ButtonText.getLocalBounds().height) / 3;
 		ButtonText.setPosition(pos);
 	}

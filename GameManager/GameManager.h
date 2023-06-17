@@ -3,6 +3,7 @@
 
 #include "../Menus/Menu.h"
 #include "../Menus/MainMenu.h"
+#include "../Menus/SelectionMenu.h"
 #include "../Menus/Settings.h"
 
 /**
@@ -24,6 +25,8 @@ public:
 	void Execution();
 
 	void CreateMainMenu();
+
+	void CreateSelectionMenu();
 	
 	void CreateOptionsMenu();
 

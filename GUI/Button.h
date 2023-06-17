@@ -9,8 +9,9 @@ class Button : public Interactives
 
 public:
 	Button(sf::Vector2f size, float radius, unsigned int cornerPointCount, std::string text);
-	void SetPosition(sf::Vector2f position);
 
+	virtual void SetPosition(sf::Vector2f position);
+	virtual void SetSize(sf::Vector2f size);
 	/**
 	* @brief Draws the Interactive object on the screen.
 	*/

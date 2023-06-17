@@ -24,11 +24,6 @@ public:
 	virtual void Resize();
 
 	/**
-	* @brief Loops on the user's input to handle it.
-	*/
-	virtual void GetInput();
-
-	/**
 	* @brief Handles the user's mouse input.
 	*/
 	virtual void HandleMouseInput();
@@ -39,6 +34,31 @@ public:
 	* @param key - The pressed key.
 	*/
 	virtual void HandleKeyInput(sf::Event::KeyEvent key);
+
+	/**
+	* @brief Handles the up arrow key input.
+	*/
+	virtual void MoveUp();
+
+	/**
+	* @brief Handles the down arrow key input.
+	*/
+	virtual void MoveDown();
+
+	/**
+	* @brief Handles the left arrow key input.
+	*/
+	virtual void MoveLeft();
+
+	/**
+	* @brief Handles the right arrow key input.
+	*/
+	virtual void MoveRight();
+
+	/**
+	* @brief Executes the desired action chosen by the user.
+	*/
+	virtual void CheckAction();
 
 	/**
 	* @brief Updates the GUI.

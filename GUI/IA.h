@@ -35,6 +35,11 @@ public:
 	void SetHover(bool hover);
 
 	void SetAction(UI::ActionType action);
+
+	virtual void SetPosition(sf::Vector2f position);
+
+	virtual void SetSize(sf::Vector2f size) = 0;
+
 	UI::ActionType GetAction() const { return action; }
 
 	/**

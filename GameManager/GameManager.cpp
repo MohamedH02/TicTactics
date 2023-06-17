@@ -22,6 +22,14 @@ void GameManager::Execution()
 		case UI::SETTINGS:
 			CreateOptionsMenu();
 			break;
+		case UI::SELECTION:
+			CreateSelectionMenu();
+			break;
+		default:
+			UI::GamePhase temp = UI::GUI.PrevPage;
+			UI::GUI.CurrPage = UI::GUI.CurrPage;
+			UI::GUI.CurrPage = temp;
+
 		}
 	}
 }
@@ -29,6 +37,13 @@ void GameManager::Execution()
 void GameManager::CreateMainMenu()
 {
 	CurrPage = new MainMenu(*window);
+	CurrPage->GetInput();
+	delete CurrPage;
+}
+
+void GameManager::CreateSelectionMenu()
+{
+	CurrPage = new SelectionMenu(*window);
 	CurrPage->GetInput();
 	delete CurrPage;
 }

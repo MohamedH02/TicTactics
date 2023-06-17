@@ -4,7 +4,7 @@
 MainMenu::MainMenu(sf::RenderWindow& window)
 {
 	this->window = &window;
-	selected = NULL;
+	selected =  -1;
 	Interactives::SetRenderWindow(window);
 
 	Setup();
@@ -71,33 +71,45 @@ void MainMenu::Resize()
 }
 
 /**
-* @brief Loops on the user's input to handle it.
+* @brief Handles the up arrow key input.
 */
-void MainMenu::GetInput()
+void MainMenu::MoveUp()
 {
-	sf::Clock clock;
-	while (window->isOpen() && UI::GUI.CurrPage == UI::MAIN)
-	{
-		sf::Event event;
-		float deltatime = clock.restart().asSeconds();
-		while (window->pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-			{
-				UI::GUI.CurrPage = UI::EXIT;
-				window->close();
-			}
-			else if (event.type == sf::Event::KeyPressed)
-			{
-				HandleKeyInput(event.key);
-			}
-			else
-			{
-				HandleMouseInput();
-			}
-		}
-		UpdateInterface(deltatime);
-	}
+	if (selected != -1)
+		IA[selected]->SetHover(false);
+	if (selected <= 0)
+		selected = IA.size() - 1;
+	else
+		selected--;
+	IA[selected]->SetHover(true);
+}
+
+/**
+* @brief Handles the down arrow key input.
+*/
+void MainMenu::MoveDown()
+{
+	if (selected != -1)
+		IA[selected]->SetHover(false);
+	selected++;
+	selected %= IA.size();
+	IA[selected]->SetHover(true);
+}
+
+/**
+* @brief Handles the left arrow key input.
+*/
+void MainMenu::MoveLeft()
+{
+	// Changes theme?
+}
+
+/**
+* @brief Handles the right arrow key input.
+*/
+void MainMenu::MoveRight()
+{
+	// Changes theme?
 }
 
 /**
@@ -110,23 +122,9 @@ void MainMenu::HandleMouseInput()
 		const sf::Vector2i mouse_position = sf::Mouse::getPosition(*window);	// Gets mouse position relative to the local given window.
 		GetHover(mouse_position);
 	}
-	else if (selected)
+	else if (selected != -1)
 	{
-		UI::ActionType action = selected->GetAction();
-		switch (action)
-		{
-		case UI::SelectModes:
-			UI::GUI.CurrPage = UI::SELECTION;
-			UI::GUI.PrevPage = UI::MAIN;
-			break;
-		case UI::OpenSettings:
-			UI::GUI.CurrPage = UI::SETTINGS;
-			UI::GUI.PrevPage = UI::MAIN;
-			break;
-		case UI::ExitGame:
-			UI::GUI.CurrPage = UI::EXIT;
-			window->close();
-		}
+		CheckAction();
 	}
 }
 
@@ -143,8 +141,54 @@ void MainMenu::HandleKeyInput(sf::Event::KeyEvent key)
 		UI::GUI.CurrPage = UI::EXIT;
 		window->close();
 		break;
+	case sf::Keyboard::Tab:
+		if (selected != -1)
+			IA[selected]->SetHover(false);
+		selected++;
+		selected %= IA.size();
+		IA[selected]->SetHover(true);
+		break;
+	case sf::Keyboard::Up:
+		MoveUp();
+		break;
+	case sf::Keyboard::Down:
+		MoveDown();
+		break;
+	case sf::Keyboard::Left:
+		MoveLeft();
+		break;
+	case sf::Keyboard::Right:
+		MoveRight();
+		break;
+	case sf::Keyboard::Enter:
+		CheckAction();
+		break;
 	default:
 		break;
+	}
+}
+
+/**
+* @brief Executes the desired action chosen by the user.
+*/
+void MainMenu::CheckAction()
+{
+	if (selected <= -1) return;
+
+	UI::ActionType action = IA[selected]->GetAction();
+	switch (action)
+	{
+	case UI::SelectModes:
+		UI::GUI.CurrPage = UI::SELECTION;
+		UI::GUI.PrevPage = UI::MAIN;
+		break;
+	case UI::OpenSettings:
+		UI::GUI.CurrPage = UI::SETTINGS;
+		UI::GUI.PrevPage = UI::MAIN;
+		break;
+	case UI::ExitGame:
+		UI::GUI.CurrPage = UI::EXIT;
+		window->close();
 	}
 }
 
