@@ -3,6 +3,7 @@
 
 class Button : public Interactives
 {
+	sf::Vector2f OriginalSize;
 	sf::RoundedRectangleShape ButtonShape;
 	sf::Text ButtonText;
 	sf::Font font;
@@ -12,6 +13,12 @@ public:
 
 	virtual void SetPosition(sf::Vector2f position);
 	virtual void SetSize(sf::Vector2f size);
+
+	/**
+	* @brief Changes the object's theme to be equivalent to the selected theme.
+	*/
+	virtual void SetTheme();
+
 	/**
 	* @brief Draws the Interactive object on the screen.
 	*/

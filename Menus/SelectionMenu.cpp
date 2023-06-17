@@ -21,8 +21,9 @@ SelectionMenu::~SelectionMenu()
 */
 void SelectionMenu::Setup()
 {
+	UI::theme theme = UI::GUI.themes[UI::GUI.index];
 	// BackGround.
-	BackGround.setFillColor(UI::GUI.BG_color);
+	BackGround.setFillColor(theme.BG_color);
 
 
 	// Buttons.
@@ -68,7 +69,7 @@ void SelectionMenu::MoveUp()
 	if (selected <= -1)
 		selected = 0;
 	else
-		selected = (IA.size() + selected - 3) % IA.size();
+		selected = (int(IA.size()) + selected - 3) % int(IA.size());
 	IA[selected]->SetHover(true);
 }
 
@@ -97,7 +98,7 @@ void SelectionMenu::MoveLeft()
 	if (selected != -1)
 		IA[selected]->SetHover(false);
 	if (selected <= 0)
-		selected = IA.size() - 1;
+		selected = int(IA.size()) - 1;
 	else
 		selected--;
 	IA[selected]->SetHover(true);

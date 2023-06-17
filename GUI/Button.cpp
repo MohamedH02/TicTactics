@@ -4,10 +4,8 @@ Button::Button(sf::Vector2f size, float radius, unsigned int cornerPointCount, s
 {
 	OriginalSize = size;
 	Position = sf::Vector2f(0, 0);
-	PrimaryColor = UI::GUI.Secondary_color;
 
 
-	ButtonShape.setFillColor(PrimaryColor);
 	ButtonShape.setSize(OriginalSize);
 
 	if (!font.loadFromFile(".\\Assets\\Fonts\\Montserrat\\static\\Montserrat-Medium.ttf"))
@@ -16,10 +14,10 @@ Button::Button(sf::Vector2f size, float radius, unsigned int cornerPointCount, s
 		exit(1);
 	}
 	ButtonText.setFont(font);
-	ButtonText.setFillColor(UI::GUI.Text_color);
+	
 	ButtonText.setCharacterSize(unsigned int(40));
 	ButtonText.setString(text);
-	
+	SetTheme();
 
 	hover = false;
 }
@@ -43,6 +41,17 @@ void Button::SetSize(sf::Vector2f size)
 	ButtonShape.setSize(size);
 
 	ButtonText.setCharacterSize((Xchange > Ychange) ? Ychange : Xchange);
+}
+
+/**
+* @brief Changes the object's theme to be equivalent to the selected theme.
+*/
+void Button::SetTheme()
+{
+	const UI::theme& theme = UI::GUI.themes[UI::GUI.index];
+	PrimaryColor = theme.Secondary_color;
+	ButtonShape.setFillColor(PrimaryColor);
+	ButtonText.setFillColor(theme.Text_color);
 }
 
 /**
@@ -76,13 +85,13 @@ bool Button::CheckHover(const sf::Vector2i mouse) const
 */
 void Button::update()
 {
-
+	const UI::theme theme = UI::GUI.themes[UI::GUI.index];
 	if (hover == true)
 	{
-		const  sf::Vector2f position(Position.x - 5, Position.y - 10);
-		const  sf::Vector2f size(OriginalSize.x + 10, OriginalSize.y + 5);
+		const sf::Vector2f position(Position.x - 5, Position.y - 10);
+		const sf::Vector2f size(OriginalSize.x + 10, OriginalSize.y + 5);
 
-		ButtonShape.setFillColor(UI::GUI.Primary_color);
+		ButtonShape.setFillColor(theme.Primary_color);
 		ButtonShape.setPosition(position);
 		ButtonShape.setSize(size);
 
@@ -96,7 +105,7 @@ void Button::update()
 	}
 	else
 	{
-		ButtonShape.setFillColor(UI::GUI.Secondary_color);
+		ButtonShape.setFillColor(theme.Secondary_color);
 		ButtonShape.setSize(OriginalSize);
 
 		font.loadFromFile(".\\Assets\\Fonts\\Montserrat\\static\\Montserrat-Medium.ttf");

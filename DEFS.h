@@ -11,6 +11,8 @@ namespace UI {
 	{
 		OpenSettings,
 		SelectModes,
+		NextTheme,
+		PreviousTheme,
 		PlayClassic,
 		ReturnToPrev,
 		ExitGame,
@@ -30,15 +32,21 @@ namespace UI {
 		EXIT
 	};
 
-	__declspec(selectany)			// To prevent redefinition error.
-		struct UI_Info {
-		float Width, Height,			// Window width and height.
-			Menux, Menuy;			// Menu (x, y) coordinates.
+	struct theme
+	{
 		sf::Color BG_color;
 		sf::Color Primary_color;
 		sf::Color Secondary_color;
 		sf::Color Accent_color;
 		sf::Color Text_color;
+	};
+
+	__declspec(selectany)			// To prevent redefinition error.
+		struct UI_Info {
+		float Width, Height,			// Window width and height.
+			Menux, Menuy;			// Menu (x, y) coordinates.
+		std::vector<UI::theme> themes;
+		unsigned index;
 
 		GamePhase CurrPage, PrevPage;
 
@@ -50,11 +58,15 @@ namespace UI {
 			Menux = 1425;
 			Menuy = 75;
 
-			Text_color = sf::Color(2, 4, 1, 255);
-			BG_color = sf::Color(28, 26, 18, 255);
-			Primary_color = sf::Color(234, 179, 134, 255);
-			Secondary_color = sf::Color(248, 228, 211, 255);
-			Accent_color = sf::Color(234, 179, 134, 255);
+			index = 0;
+
+			UI::theme main_theme;
+			main_theme.Text_color = sf::Color(2, 4, 1, 255);
+			main_theme.BG_color = sf::Color(28, 26, 18, 255);
+			main_theme.Primary_color = sf::Color(234, 179, 134, 255);
+			main_theme.Secondary_color = sf::Color(248, 228, 211, 255);
+			main_theme.Accent_color = sf::Color(234, 179, 134, 255);
+			themes.push_back(main_theme);
 
 			CurrPage = MAIN;
 			PrevPage = EXIT;

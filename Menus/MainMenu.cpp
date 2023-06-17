@@ -21,8 +21,10 @@ MainMenu::~MainMenu()
 */
 void MainMenu::Setup()
 {
+	UI::theme theme = UI::GUI.themes[UI::GUI.index];
+
 	// BackGround.
-	BackGround.setFillColor(UI::GUI.BG_color);
+	BackGround.setFillColor(theme.BG_color);
 	//BackGroundTexture.loadFromFile(".\\Assets\\Images\\Xbg.jpeg");
 	//BackGround.setTexture(&BackGroundTexture);
 
@@ -30,7 +32,7 @@ void MainMenu::Setup()
 	font.loadFromFile(".\\Assets\\Fonts\\Montserrat\\static\\Montserrat-ExtraBold.ttf");
 	Title.setString("TicTactics");
 	Title.setFont(font);
-	Title.setFillColor(UI::GUI.Primary_color);
+	Title.setFillColor(theme.Primary_color);
 	Title.setLetterSpacing(1);
 	Title.setCharacterSize(275);
 	sf::Vector2f pos;
@@ -56,6 +58,15 @@ void MainMenu::Setup()
 	IA.push_back(PLAY);
 	IA.push_back(SETTINGS);
 	IA.push_back(EXIT);
+	
+	float radius = 20;
+	CircularButton* Next_theme = new CircularButton(radius, ".\\Assets\\Icons\\right-arrow.png");
+	CircularButton* Prev_theme = new CircularButton(radius, ".\\Assets\\Icons\\left-arrow.png");
+	Next_theme->SetPosition(sf::Vector2f(UI::GUI.Width * 0.97 - radius * 2, UI::GUI.Height / 2 - radius));
+	Prev_theme->SetPosition(sf::Vector2f(UI::GUI.Width * 0.03, UI::GUI.Height / 2 - radius));
+
+	IA.push_back(Next_theme);
+	IA.push_back(Prev_theme);
 
 	Resize();
 }
@@ -189,6 +200,9 @@ void MainMenu::CheckAction()
 	case UI::ExitGame:
 		UI::GUI.CurrPage = UI::EXIT;
 		window->close();
+		break;
+	case UI::NextTheme:
+		break;
 	}
 }
 

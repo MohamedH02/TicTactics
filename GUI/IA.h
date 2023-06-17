@@ -7,7 +7,6 @@ class Interactives
 {
 protected:
 	sf::Vector2f Position;
-	sf::Vector2f OriginalSize;
 	sf::Color PrimaryColor;
 
 	UI::ActionType action;
@@ -39,6 +38,8 @@ public:
 	virtual void SetPosition(sf::Vector2f position);
 
 	virtual void SetSize(sf::Vector2f size) = 0;
+
+	virtual void SetTheme() = 0;
 
 	UI::ActionType GetAction() const { return action; }
 

@@ -79,3 +79,12 @@ void Menu::GetInput()
 		UpdateInterface(deltatime);
 	}
 }
+
+/**
+* @brief Update the UI theme.
+*/
+void Menu::UpdateTheme()
+{
+	for (auto& x : IA)
+		x->SetTheme();
+}

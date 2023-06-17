@@ -53,5 +53,6 @@ void GameManager::CreateOptionsMenu()
 	Menu* PrevPage = CurrPage;
 	//CurrPage = new Settings(*window);
 	delete CurrPage;
+	UI::GUI.CurrPage = UI::GUI.PrevPage;
 	CurrPage = PrevPage;
 }

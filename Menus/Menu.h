@@ -2,8 +2,7 @@
 #define _MENU_
 
 #include "../DEFS.h"
-#include "../GUI/IA.h"
-#include "../GUI/Button.h"
+#include "../GUI/Interactives.hpp"
 
 class Menu
 {
@@ -26,6 +25,11 @@ public:
 	* @brief Updates the position and scale of Objects on resizing.
 	*/
 	virtual void Resize() = 0;
+
+	/**
+	* @brief Update the UI theme.
+	*/
+	virtual void UpdateTheme();
 
 	/**
 	* @brief Get the object which the mouse is currently above.

@@ -136,6 +136,7 @@
   <ItemGroup>
     <ClCompile Include="GameManager\GameManager.cpp" />
     <ClCompile Include="GUI\Button.cpp" />
+    <ClCompile Include="GUI\CircularButton.cpp" />
     <ClCompile Include="GUI\IA.cpp" />
     <ClCompile Include="GUI\RoundRectangleShape.cpp" />
     <ClCompile Include="Menus\MainMenu.cpp" />
@@ -149,7 +150,10 @@
   <ItemGroup>
     <ClInclude Include="GameManager\GameManager.h" />
     <ClInclude Include="GUI\Button.h" />
+    <ClInclude Include="GUI\CircularButton.h" />
+    <ClInclude Include="GUI\HorizontalSlider.h" />
     <ClInclude Include="GUI\IA.h" />
+    <ClInclude Include="GUI\Interactives.hpp" />
     <ClInclude Include="Menus\MainMenu.h" />
     <ClInclude Include="Menus\Menu.h" />
     <ClInclude Include="Menus\SelectionMenu.h" />
