@@ -143,8 +143,7 @@ void SelectionMenu::HandleKeyInput(sf::Event::KeyEvent key)
 	switch (key.code)
 	{
 	case sf::Keyboard::Escape:
-		UI::GUI.CurrPage = UI::EXIT;
-		window->close();
+		UI::GUI.CurrPage = UI::MAIN;
 		break;
 	case sf::Keyboard::Tab:
 		if (selected != -1)

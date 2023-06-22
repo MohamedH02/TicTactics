@@ -89,7 +89,7 @@ void MainMenu::MoveUp()
 	if (selected != -1)
 		IA[selected]->SetHover(false);
 	if (selected <= 0)
-		selected = IA.size() - 1;
+		selected = 2;
 	else
 		selected--;
 	IA[selected]->SetHover(true);
@@ -103,6 +103,8 @@ void MainMenu::MoveDown()
 	if (selected != -1)
 		IA[selected]->SetHover(false);
 	selected++;
+	if (selected > 2)
+		selected = 0;
 	selected %= IA.size();
 	IA[selected]->SetHover(true);
 }
@@ -112,7 +114,13 @@ void MainMenu::MoveDown()
 */
 void MainMenu::MoveLeft()
 {
-	// Changes theme?
+	if (selected != -1)
+		IA[selected]->SetHover(false);
+	if (selected != 4)
+		selected = 4;
+	IA[selected]->SetHover(true);
+	UI::ActionType action = IA[selected]->GetAction();
+
 }
 
 /**
@@ -120,7 +128,12 @@ void MainMenu::MoveLeft()
 */
 void MainMenu::MoveRight()
 {
-	// Changes theme?
+	if (selected != -1)
+		IA[selected]->SetHover(false);
+	if (selected != 3)
+		selected = 3;
+	IA[selected]->SetHover(true);
+	UI::ActionType action = IA[selected]->GetAction();
 }
 
 /**
@@ -128,12 +141,12 @@ void MainMenu::MoveRight()
 */
 void MainMenu::HandleMouseInput()
 {
+	const sf::Vector2i mouse_position = sf::Mouse::getPosition(*window);	// Gets mouse position relative to the local given window.
 	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		const sf::Vector2i mouse_position = sf::Mouse::getPosition(*window);	// Gets mouse position relative to the local given window.
 		GetHover(mouse_position);
 	}
-	else if (selected != -1)
+	else if (selected != -1 && IA[selected]->CheckHover(mouse_position))
 	{
 		CheckAction();
 	}
